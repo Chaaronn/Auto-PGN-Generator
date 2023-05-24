@@ -1,0 +1,10 @@
+[Event "Fischer Defense - DB moves vs Stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish"]
+[Black "Lichess DB"]
+[Result "*"]
+
+1. e4 ( 1. e4 e5 2. f4 exf4 3. Nf3 d6 4. Bc4 Nf6 5. Nc3 Nc6 6. d4 Nh5 7. O-O g6 8. Nd5 Be6 9. Be2 Bxd5 10. exd5 Ne7 ) ( 1. e4 e5 2. f4 exf4 3. Nf3 d6 4. d4 Nf6 5. Nc3 Nc6 6. Bxf4 Be7 7. Be2 Bg4 8. d5 Nb8 9. Nd4 Bxe2 10. Qxe2 Nbd7 ) ( 1. e4 e5 2. f4 exf4 3. Nf3 d6 4. d4 g5 5. g3 Bg4 6. gxf4 h6 7. Rg1 Bh5 8. Qd3 a6 9. fxg5 Nc6 10. d5 Nce7 ) ( 1. e4 e5 2. f4 exf4 3. Nf3 d6 4. d4 g5 5. g3 Bg4 6. Rg1 Nc6 7. gxf4 Bxf3 8. Qxf3 gxf4 9. c3 Qh4+ 10. Qf2 Qxf2+ ) ( 1. e4 e5 2. f4 exf4 3. Nf3 d6 4. d4 g5 5. g3 Bg4 6. Rg1 Bh5 7. Nc3 Bg7 8. gxf4 g4 9. Ng5 h6 10. Nh3 Qh4+ ) ( 1. e4 e5 2. f4 exf4 3. Nf3 d6 4. d4 g5 5. g3 Bg4 6. gxf4 h6 7. Rg1 f5 8. Nc3 Bh5 9. Qd3 Qe7 10. Be2 fxe4 ) ( 1. e4 e5 2. f4 exf4 3. Nf3 d6 4. Bc4 Nf6 5. O-O Bg4 6. d4 Be7 7. Bxf4 Nc6 8. Nc3 Qd7 9. h3 Bxf3 10. Rxf3 O-O ) ( 1. e4 e5 2. f4 exf4 3. Nf3 d6 4. d4 Nf6 5. Nc3 Nc6 6. Bxf4 Bg4 7. Be2 d5 8. Nxd5 Nxd5 9. exd5 Qxd5 10. O-O Bd6 ) ( 1. e4 e5 2. f4 exf4 3. Nf3 d6 4. d4 Nf6 5. Nc3 Be7 6. Bxf4 O-O 7. Be2 c6 8. O-O Nbd7 9. Bd3 Re8 10. h3 Nf8 ) 1... e5 2. f4 exf4 3. Nf3 d6 4. Bc4 Nf6 5. Nc3 Nc6 6. d4 Bg4 7. Bxf4 Bxf3 8. gxf3 Nh5 9. Be3 g6 10. Qe2 Qh4+ *
+

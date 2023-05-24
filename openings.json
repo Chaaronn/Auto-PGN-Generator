@@ -1,0 +1,19 @@
+{
+    "Kings Gambit Accepted" : [
+        {
+        "MacLeod Defense" : ["e2e4","e7e5","f2f4","e5f4","g1f3", "b8c6"],
+        "Fischer Defense" : ["e2e4","e7e5","f2f4","e5f4","g1f3", "d7d6"],
+        "Kings Knight Gambit" : ["e2e4","e7e5","f2f4","e5f4","g1f3", "g7g5"],
+        "Modern Defence" : ["e2e4","e7e5","f2f4","e5f4","g1f3", "d7d5"],
+        "Bonsch-Osmolovsky Variation" : ["e2e4","e7e5","f2f4","e5f4","g1f3", "g8e7"],
+        "Cunningham Defense" : ["e2e4","e7e5","f2f4","e5f4","g1f3", "f8e7"]
+        }
+    ],
+    "Kings Gambit Declined" : [
+        {
+        "Falkbeer Countergambit" : ["e2e4", "e7e5", "f2f4", "d7d5"],
+        "Classical" : ["e2e4", "e7e5", "f2f4", "f8c5"],
+        "Queens Knight Defense" : ["e2e4", "e7e5", "f2f4", "b8c6"]
+        }
+    ]
+}
