@@ -18,3 +18,10 @@ run main.py
 pgn for given variations in setup.ini will be generated in the file path
 
 I'll be adding more variations as I go
+
+
+# TODO 
+
+1. Make variation search not based off raw text 
+2. Increase efficiency 
+3. Error handling
