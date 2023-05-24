@@ -1,4 +1,4 @@
-import requests, random, re, json, os, sys
+import requests, random, re, json, os, sys, ast
 import chess.pgn, chess.engine
 import chess
 import configparser
@@ -26,7 +26,7 @@ except json.JSONDecodeError as e:
 
 def get_database_from_fen(fen):
     # the range of ratings the database moves will come from
-    rating_range = config['DATABASE']['rating_range']
+    rating_range = ast.literal_eval(config['DATABASE']['rating_range'])
     # the number of moves to return (helpful to keep this +5 from max of database_choices)
     moves_to_display = config['DATABASE']['moves_to_display']
     
@@ -44,6 +44,7 @@ def get_top_move(db,move_level,engine):
         move = db['moves'][move_level]['uci']
     # except is either no db moves, or not one at move_level
     except:
+        print('Error in using db. using stockfish')
         move = get_stockfish_move(board, engine)
     return move
 
@@ -108,7 +109,8 @@ current_variations = 0
 # max number of moves per line
 moves_per_line = int(config['SETUP']['moves_per_line'])
 # how low down the top moves we look when choosing black's moves
-database_choices = config['DATABASE']['database_choices']
+# load with ast otherwise its just a string
+database_choices = ast.literal_eval(config['DATABASE']['database_choices'])
 # max centipawn value before we use stockfish instead of db
 max_centipawns = int(config['DATABASE']['max_centipawn_value'])
 # load engine
