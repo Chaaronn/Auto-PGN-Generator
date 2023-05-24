@@ -9,6 +9,10 @@ SETUP:
 
 Ensure 'main_opening' and 'variation_name' exactly match to the opening in openings.json
 
-That's it! 
+USAGE:
+
+run main.py
+
+pgn for given variations in setup.ini will be generated in the file path
 
 I'll be adding more variations as I go
