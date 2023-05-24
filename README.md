@@ -15,11 +15,10 @@ Currently NO error handling, so if this isn't done your PC will cry as Stockfish
 
 # USAGE
 
-run main.py
+python run main.py
 
-pgn for given variations in setup.ini will be generated in the file path
+pgn for given variations in setup.ini will be generated in the file path of the Python file.
 
-I'll be adding more variations as I go
 
 
 # TODO 
@@ -27,3 +26,4 @@ I'll be adding more variations as I go
 1. Make variation search not based off raw text 
 2. Increase efficiency 
 3. Error handling
+4. More variations
