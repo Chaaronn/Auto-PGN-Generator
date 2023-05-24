@@ -58,7 +58,7 @@ board = chess.Board()
 board = play_opening(board,variation_name)
 game = chess.pgn.Game()
 game.headers['Event'] = main_opening + ' - ' + variation_name
-game.headers['White'] = 'Stockfish'
+game.headers['White'] = 'Stockfish' + 'D - ' + str(depth)
 game.headers['Black'] = 'Lichess DB'
 
 # max number of different lines
