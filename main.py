@@ -57,7 +57,7 @@ depth = config['ENGINE']['depth']
 board = chess.Board()
 board = play_opening(board,variation_name)
 game = chess.pgn.Game()
-game.headers['Event'] = variation_name + ' - DB moves vs Stockfish'
+game.headers['Event'] = main_opening + ' - ' + variation_name
 game.headers['White'] = 'Stockfish'
 game.headers['Black'] = 'Lichess DB'
 
@@ -111,5 +111,5 @@ while current_variations != max_variations:
 
 
 engine.quit()
-print(game, file=open("%s.pgn" % variation_name, "w"), end="\n\n")
+print(game, file=open("%s - %s.pgn" % (main_opening, variation_name), "w"), end="\n\n")
 print('Saved pgn successfully')
