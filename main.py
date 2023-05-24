@@ -25,6 +25,7 @@ def get_top_move(db,move_level,engine):
     # try to get a move from db, otherwise use stockfish
     try:
         move = db['moves'][move_level]['uci']
+    # except is either no db moves, or not one at move_level
     except:
         move = get_stockfish_move(board, engine)
     return move
@@ -32,6 +33,7 @@ def get_top_move(db,move_level,engine):
 def get_stockfish_analysis(board, engine):
     # analyse given board and return Centipawns from White perspective
     # used to stop db choices being wild
+    # could change to utilising Lichess online eval to save processing
     info = engine.analyse(board, chess.engine.Limit(depth=depth))
     return info['score']
 
@@ -51,14 +53,19 @@ def play_opening(board,opening):
         board.push_uci(move)
     return board
 
+# set-up variables for use, see setup.ini for explainations
 main_opening = config['SETUP']['main_opening']
 variation_name = config['SETUP']['variation_name']
 depth = config['ENGINE']['depth']
+# set-up the board
 board = chess.Board()
+# play out the speicifed opening. this is required or the PGN will be incorrect
 board = play_opening(board,variation_name)
+# set-up game to add lines later
 game = chess.pgn.Game()
+# add headers so on import it looks nice on Lichess
 game.headers['Event'] = main_opening + ' - ' + variation_name
-game.headers['White'] = 'Stockfish' + 'D - ' + str(depth)
+game.headers['White'] = 'Stockfish' + ' D - ' + str(depth)
 game.headers['Black'] = 'Lichess DB'
 
 # max number of different lines
@@ -74,8 +81,11 @@ max_centipawns = int(config['DATABASE']['max_centipawn_value'])
 engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
 print('Engine Loaded')
 
+# main loop
+# start new variation
 while current_variations != max_variations:
     print('Line %s started' % current_variations)
+    # start new line
     while board.fullmove_number <= moves_per_line:
         # this will have to be repeated after every move
         move_list = get_database_from_fen(board.fen())
@@ -92,24 +102,31 @@ while current_variations != max_variations:
 
             # now it analyses db moves and if cp is greater than 150, gets stockfish move
             current_centipawns = str(get_stockfish_analysis(board,engine))
+            # necassary to remove none int values from string
             current_centipawns = int(re.sub("[^0-9]", "", current_centipawns))
-            # have to do it after so we have the updated board
+            # compare cp against max
             if current_centipawns >= max_centipawns:
                 # if move is bad, return to previous state and push sf move
                 board.pop()
                 move = get_stockfish_move(board,engine)
                 board.push_uci(move)
             else:
+                # move on, the db move was good enough
                 pass     
         
 
-    # once we reach 10 moves, reset to opening
+    # once we reach 10 moves, add line to pgn, reset to opening
     game.add_line(board.move_stack)
     current_variations += 1
     board.reset()
     board = play_opening(board,variation_name)
 
-
+# always quit engine or it will run indefinitely
 engine.quit()
-print(game, file=open("%s - %s.pgn" % (main_opening, variation_name), "w"), end="\n\n")
+
+# modified so it closes the file
+filename = "%s - %s.pgn" % (main_opening, variation_name)
+with open(filename, "w") as file:
+    print(game, file=file, end="\n\n")
+
 print('Saved pgn successfully')
