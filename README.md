@@ -1,4 +1,4 @@
-# auto-study-maker
+# PGN Generator
 
 This script generates variations based off given values in the INI file. 
 
@@ -7,11 +7,11 @@ Designed for use with Lichess Studies & Listudy, so many variations can be made 
 It chooses random DB moves, then replies with the best move from Stockfish 15
 
 
-SETUP:
+# SETUP
 
 Ensure 'main_opening' and 'variation_name' exactly match to the opening in openings.json
 
-USAGE:
+# USAGE
 
 run main.py
 
