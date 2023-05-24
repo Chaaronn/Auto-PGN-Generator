@@ -9,7 +9,7 @@ It chooses random DB moves, then replies with the best move from Stockfish 15
 
 # SETUP
 
-Ensure 'main_opening' and 'variation_name' exactly match to the opening in openings.json
+Ensure 'main_opening' and 'variation_name' in setup.ini exactly match to the opening and variation in openings.json
 
 Currently NO error handling, so if this isn't done your PC will cry as Stockfish runs forever
 
