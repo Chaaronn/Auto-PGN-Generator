@@ -9,17 +9,16 @@ It chooses random DB moves, then replies with the best move from Stockfish 15
 
 # SETUP
 
-Ensure 'main_opening' and 'variation_name' exactly match to the opening in openings.json
+Ensure 'main_opening' and 'variation_name' in setup.ini exactly match to the opening and variation in openings.json
 
 Currently NO error handling, so if this isn't done your PC will cry as Stockfish runs forever
 
 # USAGE
 
-run main.py
+python run main.py
 
-pgn for given variations in setup.ini will be generated in the file path
+pgn for given variations in setup.ini will be generated in the file path of the Python file.
 
-I'll be adding more variations as I go
 
 
 # TODO 
@@ -27,3 +26,4 @@ I'll be adding more variations as I go
 1. Make variation search not based off raw text 
 2. Increase efficiency 
 3. Error handling
+4. More variations
