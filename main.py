@@ -3,23 +3,40 @@ import chess.pgn, chess.engine
 import chess
 import configparser
 
+
 config = configparser.ConfigParser()
-config.read('setup.ini')
+try:
+    config.read('setup.ini')
+except IOError as e:
+    print("Error reading setup.ini:", str(e))
+    sys.exit(1)
 
 stockfish_path = os.path.join(sys.path[0],'stockfish\stockfish_15.exe')
 
 # how the base game is loaded before db/stockfish takes over
 f = open('openings.json')
-opening_json = json.load(f)
-f.close()
+try:
+    opening_json = json.load(f)
+    f.close()
+except json.JSONDecodeError as e:
+    print("Error in JSON handling"), str(e)
+    f.close()
+    sys.exit(1)
+
 
 def get_database_from_fen(fen):
     # the range of ratings the database moves will come from
     rating_range = config['DATABASE']['rating_range']
     # the number of moves to return (helpful to keep this +5 from max of database_choices)
     moves_to_display = config['DATABASE']['moves_to_display']
-    resp = requests.get('https://explorer.lichess.ovh/lichess', params={'variant' : 'standard', 'fen': fen, 'moves': moves_to_display, 'rating' : rating_range})
-    return resp.json()
+    
+    try:
+        resp = requests.get('https://explorer.lichess.ovh/lichess', params={'variant' : 'standard', 'fen': fen, 'moves': moves_to_display, 'rating' : rating_range})
+        resp.raise_for_status()  # Check for any HTTP errors
+        return resp.json()
+    except requests.exceptions.RequestException as e:
+        print("Error making API request:", str(e))
+        sys.exit(1)
      
 def get_top_move(db,move_level,engine):
     # try to get a move from db, otherwise use stockfish
@@ -46,12 +63,30 @@ def get_stockfish_move(board, engine):
     return move
 
 def play_opening(board,opening):
-    # plays the opening as specifed in INI file
-    opening_moves = opening_json[main_opening][0][opening]
     
+    # plays the opening as specifed in INI file
+    try:
+        opening_moves = opening_json[main_opening][0][opening]
+    except KeyError as e:
+        print('Error: Invalid Opening', str(e))
+        sys.exit(1)
+
     for move in opening_moves:
         board.push_uci(move)
     return board
+
+def clean_analysis(string):
+    
+    start_index = string.find('Cp(') + 3
+    end_index = string.find(')', start_index)
+    number_string = string[start_index:end_index]
+
+    if number_string.startswith('+'):
+        number_string = number_string[1:]  # Remove the leading '+'
+
+    string = int(number_string)
+
+    return string
 
 # set-up variables for use, see setup.ini for explainations
 main_opening = config['SETUP']['main_opening']
@@ -65,8 +100,7 @@ board = play_opening(board,variation_name)
 game = chess.pgn.Game()
 # add headers so on import it looks nice on Lichess
 game.headers['Event'] = main_opening + ' - ' + variation_name
-game.headers['White'] = 'Stockfish' + ' D - ' + str(depth)
-game.headers['Black'] = 'Lichess DB'
+
 
 # max number of different lines
 max_variations = int(config['SETUP']['max_variations'])
@@ -103,7 +137,8 @@ while current_variations != max_variations:
             # now it analyses db moves and if cp is greater than 150, gets stockfish move
             current_centipawns = str(get_stockfish_analysis(board,engine))
             # necassary to remove none int values from string
-            current_centipawns = int(re.sub("[^0-9]", "", current_centipawns))
+            #current_centipawns = int(re.sub("[^0-9]", "", current_centipawns)) 
+            current_centipawns = clean_analysis(current_centipawns)
             # compare cp against max
             if current_centipawns >= max_centipawns:
                 # if move is bad, return to previous state and push sf move
@@ -126,7 +161,11 @@ engine.quit()
 
 # modified so it closes the file
 filename = "%s - %s.pgn" % (main_opening, variation_name)
-with open(filename, "w") as file:
-    print(game, file=file, end="\n\n")
+try:
+    with open(filename, "w") as file:
+        print(game, file=file, end="\n\n")
+        print('Saved pgn successfully')
+except IOError as e:
+    print("Error writing to PGN file:", str(e))
+    sys.exit(1)
 
-print('Saved pgn successfully')
