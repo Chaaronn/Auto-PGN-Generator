@@ -10,6 +10,8 @@ Currently, I have only added the King's Gambit (aka best opening) to the list of
 
 Example outputs can be found at: https://lichess.org/study/IDf2Qi7W
 
+Google Collab version: https://colab.research.google.com/drive/1jUxM-EFstDgyCt2P77dZMljoZlw0mcgL
+
 
 # SETUP
 
@@ -31,6 +33,7 @@ pgn for given variation in setup.ini will be generated in the file path of the P
 
 # TODO 
 
-1. Make variation search not based off raw text 
+1. Allow for colour swapping
 2. Increase efficiency 
 3. More variations
+4. Remove openings counting towards moves_per_line
