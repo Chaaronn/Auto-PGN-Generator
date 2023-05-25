@@ -15,13 +15,13 @@ Example outputs can be found at: https://lichess.org/study/IDf2Qi7W
 
 Ensure 'main_opening' and 'variation_name' in setup.ini exactly match to the opening and variation in openings.json
 
-
+Only requirement outside base Python modules is 'python-chess'.
 
 # USAGE
 
 python run main.py
 
-pgn for given variations in setup.ini will be generated in the file path of the Python file.
+pgn for given variation in setup.ini will be generated in the file path of the Python file.
 
 
 
