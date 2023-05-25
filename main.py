@@ -90,10 +90,65 @@ def clean_analysis(string):
 
     return string
 
+def make_moves(board,engine,move_list,max_cp,side):
+    # board.turn will return True if it whites turn, False if black
+    if side.lower() == 'white':
+        if board.turn == True:
+            move = get_stockfish_move(board,engine)
+            board.push_uci(move)            
+        else:
+            # db logic here
+            move_level = random.choice(database_choices)
+            move = get_top_move(move_list,move_level,engine)
+            board.push_uci(move)
+
+            # now it analyses db moves and if cp is greater than 150, gets stockfish move
+            current_centipawns = str(get_stockfish_analysis(board,engine))
+            # necassary to remove none int values from string
+            #current_centipawns = int(re.sub("[^0-9]", "", current_centipawns)) 
+            current_centipawns = clean_analysis(current_centipawns)
+            # compare cp against max
+            if current_centipawns >= max_cp:
+                # if move is bad, return to previous state and push sf move
+                board.pop()
+                move = get_stockfish_move(board,engine)
+                board.push_uci(move)
+            else:
+                # move on, the db move was good enough
+                pass
+    elif side.lower() == 'black':
+
+        if board.turn == True:
+               # db logic here
+            move_level = random.choice(database_choices)
+            move = get_top_move(move_list,move_level,engine)
+            board.push_uci(move)
+
+            # now it analyses db moves and if cp is greater than 150, gets stockfish move
+            current_centipawns = str(get_stockfish_analysis(board,engine))
+            # necassary to remove none int values from string
+            #current_centipawns = int(re.sub("[^0-9]", "", current_centipawns)) 
+            current_centipawns = clean_analysis(current_centipawns)
+            # compare cp against max
+            if current_centipawns >= max_cp:
+                # if move is bad, return to previous state and push sf move
+                board.pop()
+                move = get_stockfish_move(board,engine)
+                board.push_uci(move)
+            else:
+                # move on, the db move was good enough
+                pass
+        else:
+            move = get_stockfish_move(board,engine)
+            board.push_uci(move)
+    else:
+        print('Error in choosing side.')
+
 # set-up variables for use, see setup.ini for explainations
 main_opening = config['SETUP']['main_opening']
 variation_name = config['SETUP']['variation_name']
 depth = config['ENGINE']['depth']
+side = config['SETUP']['side']
 # set-up the board
 board = chess.Board()
 # play out the speicifed opening. this is required or the PGN will be incorrect
@@ -128,7 +183,8 @@ while current_variations != max_variations:
         # this will have to be repeated after every move
         move_list = get_database_from_fen(board.fen())
 
-        # board.turn will return True if it whites turn, False if black
+        make_moves(board, engine, move_list, max_centipawns,side)
+        '''# board.turn will return True if it whites turn, False if black
         if board.turn == True:
             move = get_stockfish_move(board,engine)
             board.push_uci(move)            
@@ -151,7 +207,7 @@ while current_variations != max_variations:
                 board.push_uci(move)
             else:
                 # move on, the db move was good enough
-                pass     
+                pass     '''
         
     # once we reach 10 moves, add line to pgn, reset to opening
     # added so lines always end with a final White move
