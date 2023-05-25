@@ -176,4 +176,3 @@ try:
 except IOError as e:
     print("Error writing to PGN file:", str(e))
     sys.exit(1)
-
