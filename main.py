@@ -29,9 +29,10 @@ def get_database_from_fen(fen):
     rating_range = ast.literal_eval(config['DATABASE']['rating_range'])
     # the number of moves to return (helpful to keep this +5 from max of database_choices)
     moves_to_display = config['DATABASE']['moves_to_display']
-    
+
     try:
-        resp = requests.get('https://explorer.lichess.ovh/lichess', params={'variant' : 'standard', 'fen': fen, 'moves': moves_to_display, 'rating' : rating_range})
+        resp = requests.get('https://explorer.lichess.ovh/lichess', 
+                            params={'variant' : 'standard', 'fen': fen, 'moves': moves_to_display, 'rating' : rating_range})
         resp.raise_for_status()  # Check for any HTTP errors
         return resp.json()
     except requests.exceptions.RequestException as e:
@@ -115,6 +116,7 @@ database_choices = ast.literal_eval(config['DATABASE']['database_choices'])
 max_centipawns = int(config['DATABASE']['max_centipawn_value'])
 # load engine
 engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
+engine.configure({'Threads': int(config['ENGINE']['threads'])})
 print('Engine Loaded')
 
 # main loop
@@ -151,8 +153,12 @@ while current_variations != max_variations:
                 # move on, the db move was good enough
                 pass     
         
-
     # once we reach 10 moves, add line to pgn, reset to opening
+    # added so lines always end with a final White move
+    if board.turn == True:
+            move = get_stockfish_move(board,engine)
+            board.push_uci(move)
+    
     game.add_line(board.move_stack)
     current_variations += 1
     board.reset()
