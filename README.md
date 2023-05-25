@@ -10,7 +10,7 @@ Currently, I have only added the King's Gambit (aka best opening) to the list of
 
 Example outputs can be found at: https://lichess.org/study/IDf2Qi7W
 
-Google Collab version: https://drive.google.com/file/d/1vGWU43FVNGbQbHB2GgCUgDFsUBKeaJQZ/view?usp=sharing
+Google Collab version: https://colab.research.google.com/drive/1jUxM-EFstDgyCt2P77dZMljoZlw0mcgL
 
 
 # SETUP
