@@ -42,11 +42,11 @@
     ],
     "Caro Khan" : [
         {
-        "Base" : ["e2e4", "c6c7", "d2d4", "d7d5"],
-        "Advance" : ["e2e4", "c6c7", "d2d4", "d7d5","e4e5"],
-        "Exchange" : ["e2e4", "c6c7", "d2d4", "d7d5","e4d5", "c6d5"],
-        "Main Line" : ["e2e4", "c6c7", "d2d4", "d7d5","b1c3", "d5e4", "c3d4"],
-        "Modern" : ["e2e4", "c6c7", "d2d4", "d7d5", "b1d2"]
+        "Base" : ["e2e4", "c7c6", "d2d4", "d7d5"],
+        "Advance" : ["e2e4", "c7c6", "d2d4", "d7d5","e4e5"],
+        "Exchange" : ["e2e4", "c7c6", "d2d4", "d7d5","e4d5", "c6d5"],
+        "Main Line" : ["e2e4", "c7c6", "d2d4", "d7d5","b1c3", "d5e4", "c3d4"],
+        "Modern" : ["e2e4", "c7c6", "d2d4", "d7d5", "b1d2"]
         }
     ],
     "Ruy Lopez" : [
