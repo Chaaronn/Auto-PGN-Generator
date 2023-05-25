@@ -1,4 +1,4 @@
-import requests, random, re, json, os, sys, ast
+import requests, random, json, os, sys, ast
 import chess.pgn, chess.engine
 import chess
 import configparser
