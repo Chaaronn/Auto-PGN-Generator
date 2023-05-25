@@ -21,6 +21,8 @@ Only requirement outside base Python modules is 'python-chess'.
 
 # USAGE
 
+Download & un-zip the repo. Open cmd/terminal in this folder, then:
+
 python run main.py
 
 pgn for given variation in setup.ini will be generated in the file path of the Python file.
