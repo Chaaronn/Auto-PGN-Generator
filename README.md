@@ -4,7 +4,11 @@ This python script generates PGN files containing variations based off given val
 
 Designed for use with Lichess Studies & Listudy, so many variations can be made quickly in differnt rating ranges.
 
-It chooses random DB moves, then replies with the best move from Stockfish 15. Example outputs can be found at: https://lichess.org/study/IDf2Qi7W
+It utilises Lichess API to access most played moves in a given rating range, then follows pre-set openings until the opening line ends after which the database is accessed for Black's moves, whereas Stockfish is used for White.  If the database move causes significant advantage for White (cp>=200), it reverts to Stockfish for each player. Users can edit values in the setup file to adjust the script to rating ranges, engine depth and more.
+
+Currently, I have only added the King's Gambit (aka best opening) to the list of openings, but plan to add more when I can figure out how to automate it.
+
+Example outputs can be found at: https://lichess.org/study/IDf2Qi7W
 
 
 # SETUP
