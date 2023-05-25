@@ -13,7 +13,9 @@ Example outputs can be found at: https://lichess.org/study/IDf2Qi7W
 
 # SETUP
 
-Ensure 'main_opening' and 'variation_name' in setup.ini exactly match to the opening and variation in openings.json
+Ensure 'main_opening' and 'variation_name' in setup.ini exactly match to the opening and variation in openings.json.
+
+If using an opening with a large number of pre-made moves, consider increasing "moves_per_line" as these will be counted to this total.
 
 Only requirement outside base Python modules is 'python-chess'.
 
