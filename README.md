@@ -1,17 +1,17 @@
 # PGN Generator
 
-This python script generates variations based off given values in the INI file. 
+This python script generates PGN files containing variations based off given values in the INI file. 
 
-Designed for use with Lichess Studies & Listudy, so many variations can be made quickly that are relevant to my rating (1600)
+Designed for use with Lichess Studies & Listudy, so many variations can be made quickly in differnt rating ranges.
 
-It chooses random DB moves, then replies with the best move from Stockfish 15
+It chooses random DB moves, then replies with the best move from Stockfish 15. Example outputs can be found at: https://lichess.org/study/IDf2Qi7W
 
 
 # SETUP
 
 Ensure 'main_opening' and 'variation_name' in setup.ini exactly match to the opening and variation in openings.json
 
-Currently NO error handling, so if this isn't done your PC will cry as Stockfish runs forever
+
 
 # USAGE
 
@@ -25,5 +25,4 @@ pgn for given variations in setup.ini will be generated in the file path of the 
 
 1. Make variation search not based off raw text 
 2. Increase efficiency 
-3. Error handling
-4. More variations
+3. More variations
