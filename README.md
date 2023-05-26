@@ -12,7 +12,7 @@ The list of available openings is small, as I am entering these manually for the
 
 Example outputs can be found at: https://lichess.org/study/IDf2Qi7W
 
-Google Collab version: https://colab.research.google.com/drive/1jUxM-EFstDgyCt2P77dZMljoZlw0mcgL
+You can also run it from google colab, here: https://colab.research.google.com/github/Chaaronn/Auto-PGN-Generator/blob/master/Auto_PGN_Generator.ipynb
 
 
 # SETUP
