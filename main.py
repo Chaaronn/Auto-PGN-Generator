@@ -79,6 +79,12 @@ def play_opening(board,opening):
 
 def clean_analysis(string):
     # add a mate check here, convert it to +- 999 CP
+    mate_string = 'vScore(Mate('
+    if mate_string in string:
+        if side.lower() == 'white':
+            string = '999'
+        else:
+            string = '-999'
     start_index = string.find('Cp(') + 3
     end_index = string.find(')', start_index)
     number_string = string[start_index:end_index]
