@@ -53,5 +53,52 @@
         {
         "Base" : ["e2e4","e7e5","g1f3","b8c6","f1b5"]
         }
+    ],
+    "English" : [
+        {
+        "Base" : ["c2c4"],
+        "Reverse Sicilian" : ["c2c4", "e7e5", "b1c3"],
+        "Four Knights" : ["c2c4", "e7e5", "b1c3", "g8f6", "g1f3", "b8c6"],
+        "Symmetrical" : ["c2c4", "c7c5"],
+        "Anglo-Scandinavian" : ["c2c4", "d7d5"],
+        "Anglo-Indian" : ["c2c4", "g8f6"]
+        }
+    ],
+    "Reti" : [
+        {
+        "Base" : ["g1f3"]
+        }
+    ],
+    "Kings Indian Attack" : [
+        {
+        "Base" : ["g1f3", "d7d5", "g2g3"],
+        "Sicilian" : ["g1f3", "d7d5", "g2g3", "c2c4"],
+        "Keres" : ["g1f3", "d7d5", "g2g3","c1g4"]
+        }
+    ],
+    "Queens Gambit Declined" : [
+        {
+        "Base" : ["d2d4", "d7d5", "c2c4", "e7e6"]
+        }
+    ],
+    "Queens Gambit Accepted" : [
+        {
+        "Base" : ["d2d4", "d7d5", "c2c4", "d5c4"]
+        }
+    ],
+    "Slav Defense" : [
+        {
+        "Base" : ["d2d4", "d7d5", "c2c4", "c7c6"]
+        }
+    ],
+    "Dutch Defense" : [
+        {
+        "Base": ["d2d4", "f7f5"]
+        }
+    ],
+    "Budapest Defense" : [
+        {
+        "Base" : ["d2d4", "g8f6", "c2c4", "e7e5"]
+        }
     ]
 }
