@@ -33,7 +33,6 @@ pgn for given variation in setup.ini will be generated in the file path of the P
 
 # TODO 
 
-1. Allow for colour swapping
-2. Increase efficiency 
-3. More variations
-4. Remove openings counting towards moves_per_line
+1. Increase efficiency 
+2. More variations
+3. Remove openings counting towards moves_per_line
