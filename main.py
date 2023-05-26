@@ -78,7 +78,7 @@ def play_opening(board,opening):
     return board
 
 def clean_analysis(string):
-    
+    # add a mate check here, convert it to +- 999 CP
     start_index = string.find('Cp(') + 3
     end_index = string.find(')', start_index)
     number_string = string[start_index:end_index]
