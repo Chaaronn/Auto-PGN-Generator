@@ -12,7 +12,6 @@ The list of available openings is small, as I am entering these manually for the
 
 Example outputs can be found at: https://lichess.org/study/IDf2Qi7W
 
-You can also run it from google colab, here: https://colab.research.google.com/github/Chaaronn/Auto-PGN-Generator/blob/master/Auto_PGN_Generator.ipynb
 
 
 # SETUP
@@ -31,7 +30,7 @@ python run main.py
 
 pgn for given variation in setup.ini will be generated in the file path of the Python file.
 
-
+You can also run it from google colab, here: https://colab.research.google.com/github/Chaaronn/Auto-PGN-Generator/blob/master/Auto_PGN_Generator.ipynb
 
 # TODO 
 
