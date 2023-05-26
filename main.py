@@ -174,6 +174,7 @@ engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
 engine.configure({'Threads': int(config['ENGINE']['threads'])})
 print('Engine Loaded')
 
+moves_per_line = moves_per_line + board.fullmove_number
 # main loop
 # start new variation
 while current_variations != max_variations:
