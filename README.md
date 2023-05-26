@@ -10,7 +10,7 @@ It utilises Lichess API to access most played moves in a given rating range, the
 The list of available openings is small, as I am entering these manually for the time being while I work on main code. If you wish to add more, feel free.
 
 
-Example outputs can be found at: https://lichess.org/study/IDf2Qi7W
+Example outputs can be found [here](https://lichess.org/study/ALWFtlWD)
 
 
 
