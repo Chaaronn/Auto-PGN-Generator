@@ -96,7 +96,7 @@ def clean_analysis(string):
 
     return string
 
-def make_moves(board,engine,move_list,max_cp,side):
+def make_moves(board,engine,move_list,cp_threshold,side):
     # board.turn will return True if it whites turn, False if black
     if side.lower() == 'white':
         if board.turn == True:
@@ -114,7 +114,7 @@ def make_moves(board,engine,move_list,max_cp,side):
             #current_centipawns = int(re.sub("[^0-9]", "", current_centipawns)) 
             current_centipawns = clean_analysis(current_centipawns)
             # compare cp against max
-            if current_centipawns >= max_cp:
+            if current_centipawns >= cp_threshold:
                 # if move is bad, return to previous state and push sf move
                 board.pop()
                 move = get_stockfish_move(board,engine)
@@ -133,10 +133,9 @@ def make_moves(board,engine,move_list,max_cp,side):
             # now it analyses db moves and if cp is greater than 150, gets stockfish move
             current_centipawns = str(get_stockfish_analysis(board,engine))
             # necassary to remove none int values from string
-            #current_centipawns = int(re.sub("[^0-9]", "", current_centipawns)) 
             current_centipawns = clean_analysis(current_centipawns)
             # compare cp against max
-            if current_centipawns >= max_cp:
+            if current_centipawns >= cp_threshold:
                 # if move is bad, return to previous state and push sf move
                 board.pop()
                 move = get_stockfish_move(board,engine)
@@ -191,30 +190,6 @@ while current_variations != max_variations:
         move_list = get_database_from_fen(board.fen())
 
         make_moves(board, engine, move_list, max_centipawns,side)
-        '''# board.turn will return True if it whites turn, False if black
-        if board.turn == True:
-            move = get_stockfish_move(board,engine)
-            board.push_uci(move)            
-        else:
-            # db logic here
-            move_level = random.choice(database_choices)
-            move = get_top_move(move_list,move_level,engine)
-            board.push_uci(move)
-
-            # now it analyses db moves and if cp is greater than 150, gets stockfish move
-            current_centipawns = str(get_stockfish_analysis(board,engine))
-            # necassary to remove none int values from string
-            #current_centipawns = int(re.sub("[^0-9]", "", current_centipawns)) 
-            current_centipawns = clean_analysis(current_centipawns)
-            # compare cp against max
-            if current_centipawns >= max_centipawns:
-                # if move is bad, return to previous state and push sf move
-                board.pop()
-                move = get_stockfish_move(board,engine)
-                board.push_uci(move)
-            else:
-                # move on, the db move was good enough
-                pass     '''
         
     # once we reach 10 moves, add line to pgn, reset to opening
     # added so lines always end with a final White move

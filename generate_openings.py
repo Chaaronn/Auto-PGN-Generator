@@ -1,7 +1,12 @@
 import chess
 import chess.polyglot
+from generate_pgn import play_opening
+
 
 board = chess.Board()
+main_opening = ''
+variation_name = ''
+board = play_opening(variation_name)
 
 with chess.polyglot.open_reader('opening_books/Performance.bin') as reader:
     num_lines = 0
