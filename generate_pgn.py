@@ -13,13 +13,6 @@ except IOError as e:
 
 stockfish_path = os.path.join(sys.path[0],'stockfish\stockfish_15.exe')
 
-# how the base game is loaded before db/stockfish takes over
-try:
-    opening_csv = csv.reader(open("openings/a.tsv", "r"), delimiter="\t", quotechar='"')
-except csv.Error as e:
-    print("Error in CSV reader"), str(e)
-    sys.exit(1)
-
 
 def get_database_from_fen(fen):
     # the range of ratings the database moves will come from
@@ -63,28 +56,29 @@ def get_stockfish_move(board, engine):
 
 # update to use tsv of ALL openings on Lichess
 def play_opening(board,opening):
-
+    # open tsv
     try:
         opening_csv = csv.reader(open("openings/a.tsv", "r"), delimiter="\t", quotechar='"')
     except csv.Error as e:
         print("Error in CSV reader"), str(e)
         sys.exit(1)
-
+    # future planning for dropdown opening list
     holder = []
-    print(opening)
     opening = opening.replace('"', "")
-    # plays the opening as specifed in INI file
+    # iter csv until we hit a match
     for line in opening_csv:
-        print(line)
         if opening in str(line):
             holder.append(line)
+
+    # future choice of openings from matches
     full_pgn = holder[0]
+    # convert to pgn
     pgn = io.StringIO(full_pgn[2])
     game = chess.pgn.read_game(pgn)
+    # make the board
     board = game.board()
     for move in game.mainline_moves():
         board.push(move)
-    print(board)
     return board
 
 def clean_analysis(string):
