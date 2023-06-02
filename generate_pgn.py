@@ -63,16 +63,28 @@ def get_stockfish_move(board, engine):
 
 # update to use tsv of ALL openings on Lichess
 def play_opening(board,opening):
+
+    try:
+        opening_csv = csv.reader(open("openings/a.tsv", "r"), delimiter="\t", quotechar='"')
+    except csv.Error as e:
+        print("Error in CSV reader"), str(e)
+        sys.exit(1)
+
     holder = []
+    print(opening)
     opening = opening.replace('"', "")
     # plays the opening as specifed in INI file
     for line in opening_csv:
+        print(line)
         if opening in str(line):
             holder.append(line)
     full_pgn = holder[0]
     pgn = io.StringIO(full_pgn[2])
     game = chess.pgn.read_game(pgn)
     board = game.board()
+    for move in game.mainline_moves():
+        board.push(move)
+    print(board)
     return board
 
 def clean_analysis(string):
@@ -149,7 +161,6 @@ def make_moves(board,engine,move_list,cp_threshold,side):
 
 # set-up variables for use, see setup.ini for explainations
 main_opening = config['SETUP']['main_opening']
-variation_name = config['SETUP']['variation_name']
 depth = config['ENGINE']['depth']
 side = config['SETUP']['side']
 # set-up the board
@@ -204,7 +215,7 @@ while current_variations != max_variations:
 engine.quit()
 
 # modified so it closes the file
-filename = "%s - %s.pgn" % (main_opening, variation_name)
+filename = "%s - %s.pgn" % main_opening
 try:
     with open(filename, "w") as file:
         print(game, file=file, end="\n\n")
