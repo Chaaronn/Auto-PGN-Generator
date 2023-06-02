@@ -1,4 +1,4 @@
-import requests, random, json, os, sys, ast
+import requests, random, os, sys, ast, csv, io
 import chess.pgn, chess.engine
 import chess
 import configparser
@@ -14,13 +14,10 @@ except IOError as e:
 stockfish_path = os.path.join(sys.path[0],'stockfish\stockfish_15.exe')
 
 # how the base game is loaded before db/stockfish takes over
-f = open('openings.json')
 try:
-    opening_json = json.load(f)
-    f.close()
-except json.JSONDecodeError as e:
-    print("Error in JSON handling"), str(e)
-    f.close()
+    opening_csv = csv.reader(open("openings/a.tsv", "r"), delimiter="\t", quotechar='"')
+except csv.Error as e:
+    print("Error in CSV reader"), str(e)
     sys.exit(1)
 
 
@@ -64,17 +61,18 @@ def get_stockfish_move(board, engine):
     move = str(info['pv'][0])
     return move
 
+# update to use tsv of ALL openings on Lichess
 def play_opening(board,opening):
-    
+    holder = []
+    opening = opening.replace('"', "")
     # plays the opening as specifed in INI file
-    try:
-        opening_moves = opening_json[main_opening][0][opening]
-    except KeyError as e:
-        print('Error: Invalid Opening', str(e))
-        sys.exit(1)
-
-    for move in opening_moves:
-        board.push_uci(move)
+    for line in opening_csv:
+        if opening in str(line):
+            holder.append(line)
+    full_pgn = holder[0]
+    pgn = io.StringIO(full_pgn[2])
+    game = chess.pgn.read_game(pgn)
+    board = game.board()
     return board
 
 def clean_analysis(string):
@@ -157,11 +155,11 @@ side = config['SETUP']['side']
 # set-up the board
 board = chess.Board()
 # play out the speicifed opening. this is required or the PGN will be incorrect
-board = play_opening(board,variation_name)
+board = play_opening(board,main_opening)
 # set-up game to add lines later
 game = chess.pgn.Game()
 # add headers so on import it looks nice on Lichess
-game.headers['Event'] = main_opening + ' - ' + variation_name
+game.headers['Event'] = main_opening
 
 
 # max number of different lines
@@ -200,7 +198,7 @@ while current_variations != max_variations:
     game.add_line(board.move_stack)
     current_variations += 1
     board.reset()
-    board = play_opening(board,variation_name)
+    board = play_opening(board,main_opening)
 
 # always quit engine or it will run indefinitely
 engine.quit()
